@@ -36,6 +36,7 @@ Source1:        netdata.init
 Source2:        netdata.alarm-notify.bash3.sh
 Patch1:         netdata-automake-no-dist-xz.patch
 Patch2:         netdata-python-plugin-sles11.patch
+Patch3:         netdata-alarms-bash3.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  dos2unix
@@ -74,6 +75,7 @@ using interactive web dashboards.
 #%patch0
 %patch1 -p1
 %patch2 -p1
+%patch3 -p0
 dos2unix web/lib/tableExport-1.6.0.min.js
 sed -i 's,^#!%{_bindir}/env bash,#!/bin/bash,' plugins.d/* python.d/*.sh
 
@@ -190,8 +192,10 @@ getent passwd %{netdata_user} >/dev/null || \
 %{_datadir}/%{name}/web
 
 %changelog
-* Thu May 10 2018 alex
+%changelog
+* Thu May 10 2018 Alexey Vekshin <alexei.vekshin@gmail.com>
+  - incluse alarm-notify.bash3 in config
   - patch python plugin runner for sles
   - require python-ordereddict for python 2.6 -> 2.7 compatibility
-* Thu May  3 2018 alex
+* Thu May  3 2018 Alexey Vekshin <alexei.vekshin@gmail.com>
   - add alarm-notify.bash3.sh for sles 11
